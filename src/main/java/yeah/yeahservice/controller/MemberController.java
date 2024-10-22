@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import yeah.yeahservice.dto.member.GetMemberResponse;
 import yeah.yeahservice.service.MemberService;
 
 import java.util.List;
@@ -19,10 +20,10 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/email")
-    public ResponseEntity<List<String>> findEmail() {
+    public ResponseEntity<List<GetMemberResponse>> findEmail() {
         log.info("[MemberController.getEmail]");
 
-        List<String> emailList = memberService.findEmail();
+        List<GetMemberResponse> emailList = memberService.findMember();
 
         return ResponseEntity.ok(emailList);
     }

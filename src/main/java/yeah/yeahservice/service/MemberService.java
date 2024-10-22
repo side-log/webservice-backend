@@ -5,10 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yeah.yeahservice.domain.Member;
+import yeah.yeahservice.dto.member.GetMemberResponse;
 import yeah.yeahservice.repository.MemberRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -18,14 +19,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public List<String> findEmail() {
+    public List<GetMemberResponse> findMember() {
+        log.info("[MemberService.findMember]");
+
         List<Member> members = memberRepository.findAll();
 
-        List<String> emails = new ArrayList<>();
-        for (Member member : members) {
-            emails.add(member.getEmail());
-        }
-
-        return emails;
+        return members.stream()
+                .map(GetMemberResponse::new)
+                .collect(Collectors.toList());
     }
 }

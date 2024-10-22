@@ -6,9 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yeah.yeahservice.domain.Member;
 import yeah.yeahservice.domain.Store;
-import yeah.yeahservice.dto.PostStoreAndMemberRequest;
+import yeah.yeahservice.dto.store.GetStoreAndMemberResponse;
+import yeah.yeahservice.dto.store.MemberDto;
+import yeah.yeahservice.dto.store.PostStoreAndMemberRequest;
+import yeah.yeahservice.dto.store.StoreDto;
 import yeah.yeahservice.repository.MemberRepository;
 import yeah.yeahservice.repository.StoreRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -39,5 +45,37 @@ public class StoreService {
         store.setMood(request.getStore().getMood());
 
         storeRepository.save(store);
+    }
+
+    public List<GetStoreAndMemberResponse> getStoreAndMember() {
+        log.info("[StoreService.getStoreAndMember]");
+
+        List<Store> stores = storeRepository.findAll();
+
+        return stores.stream()
+                .map(store -> {
+                    GetStoreAndMemberResponse response = new GetStoreAndMemberResponse();
+
+                    // Store -> StoreDto
+                    StoreDto storeDto = new StoreDto();
+                    storeDto.setType(store.getType());
+                    storeDto.setLocation(store.getLocation());
+                    storeDto.setBestMenu(store.getBestMenu());
+                    storeDto.setPrice(store.getPrice());
+                    storeDto.setTarget(store.getTarget());
+                    storeDto.setMood(store.getMood());
+
+                    // Member -> MemberDto
+                    MemberDto memberDto = new MemberDto();
+                    memberDto.setEmail(store.getMember().getEmail());
+                    memberDto.setDeviceId(store.getMember().getDeviceId());
+
+                    // Set DTOs to response
+                    response.setStore(storeDto);
+                    response.setMember(memberDto);
+
+                    return response;
+                })
+                .collect(Collectors.toList());
     }
 }

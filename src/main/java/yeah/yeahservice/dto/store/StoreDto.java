@@ -1,4 +1,4 @@
-package yeah.yeahservice.dto;
+package yeah.yeahservice.dto.store;
 
 import lombok.Data;
 
