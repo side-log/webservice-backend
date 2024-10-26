@@ -1,5 +1,6 @@
 package yeah.yeahservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping("")
-    public ResponseEntity<String> saveStoreAndMember(@RequestBody PostStoreAndMemberRequest request) {
+    public ResponseEntity<String> saveStoreAndMember(@RequestBody @Valid PostStoreAndMemberRequest request) {
         log.info("[StoreController.saveStoreAndMember]");
 
         storeService.saveStoreAndMember(request);
