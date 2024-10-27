@@ -28,11 +28,15 @@ public class StoreController {
         storeService.saveStoreAndMember(request);
 
         String email = request.getUser().getEmail();
-        String storeName = request.getStore().getType();
+        String storeName = request.getStore().getName();
         String storeType = request.getStore().getType();
         String location = request.getStore().getLocation();
+        String bestMenu = request.getStore().getBestMenu();
+        String price = request.getStore().getPrice();
+        String target = request.getStore().getTarget();
+        String mood = request.getStore().getMood();
 
-        discordWebhookService.sendWebhookMessage(email, storeName, storeType, location);
+        discordWebhookService.sendWebhookMessage(email, storeName, storeType, location, bestMenu, price, target, mood);
 
         return ResponseEntity.ok("Saved Store And Member");
     }
