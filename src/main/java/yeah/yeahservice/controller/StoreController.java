@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import yeah.yeahservice.discord.DiscordWebhookService;
 import yeah.yeahservice.dto.store.GetStoreAndMemberResponse;
 import yeah.yeahservice.dto.store.PostStoreAndMemberRequest;
 import yeah.yeahservice.service.StoreService;
@@ -18,12 +19,20 @@ import java.util.List;
 public class StoreController {
 
     private final StoreService storeService;
+    private final DiscordWebhookService discordWebhookService;
 
     @PostMapping("")
     public ResponseEntity<String> saveStoreAndMember(@RequestBody @Valid PostStoreAndMemberRequest request) {
         log.info("[StoreController.saveStoreAndMember]");
 
         storeService.saveStoreAndMember(request);
+
+        String message = String.format("New store created: %s at %s by user %s",
+                request.getStore().getType(),
+                request.getStore().getLocation(),
+                request.getUser().getEmail()
+        );
+        discordWebhookService.sendWebhookMessage(message);
 
         return ResponseEntity.ok("Saved Store And Member");
     }
