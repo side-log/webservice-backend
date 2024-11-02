@@ -21,6 +21,7 @@ public class StoreController {
     private final StoreService storeService;
     private final DiscordWebhookService discordWebhookService;
 
+    @CrossOrigin(origins = {"https://sonbal.vercel.app", "http://localhost:3000"})
     @PostMapping("")
     public ResponseEntity<String> saveStoreAndMember(@RequestBody @Valid PostStoreAndMemberRequest request) {
         log.info("[StoreController.saveStoreAndMember]");
