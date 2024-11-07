@@ -28,15 +28,18 @@ public class StoreService {
     public void saveStoreAndMember(PostStoreAndMemberRequest request) {
         log.info("[StoreService.saveStroeAndMember]");
 
-        Member member = new Member();
+        Member findMember = memberRepository.findById(request.getUser().getDeviceId())
+                .orElseGet(() -> {
+                    Member member = new Member();
+
+                    member.setDeviceId(request.getUser().getDeviceId());
+                    member.setEmail(request.getUser().getEmail());
+                    return memberRepository.save(member);
+                });
+
         Store store = new Store();
 
-        member.setDeviceId(request.getUser().getDeviceId());
-        member.setEmail(request.getUser().getEmail());
-
-        Member saveMember = memberRepository.save(member);
-
-        store.setMember(saveMember);
+        store.setMember(findMember);
         store.setType(request.getStore().getType());
         store.setLocation(request.getStore().getLocation());
         store.setBestMenu(request.getStore().getBestMenu());
