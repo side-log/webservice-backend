@@ -26,7 +26,7 @@ public class DiscordWebhookService {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         String message = String.format(
-                "x✨ 손님의 발견 요청이 추가되었어요!\n\n" +
+                "✨ 손님의 발견 요청이 추가되었어요!\n\n" +
                         "✉️ ***%s***\n\n" +
                         "가게 정보\n" +
                         "- 이름: %s\n" +
