@@ -26,7 +26,7 @@ public class StoreService {
 
     @Transactional
     public void saveStoreAndMember(PostStoreAndMemberRequest request) {
-        log.info("[StoreService.saveStroeAndMember]");
+        log.info("[StoreService.saveStoreAndMember]");
 
         Member findMember = memberRepository.findById(request.getUser().getDeviceId())
                 .orElseGet(() -> {
