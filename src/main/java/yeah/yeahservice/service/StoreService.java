@@ -28,7 +28,7 @@ public class StoreService {
     public void saveStoreAndMember(PostStoreAndMemberRequest request) {
         log.info("[StoreService.saveStoreAndMember]");
 
-        Member findMember = memberRepository.findById(request.getUser().getDeviceId())
+        Member findMember = memberRepository.findByDeviceId(request.getUser().getDeviceId())
                 .orElseGet(() -> {
                     Member member = new Member();
 
