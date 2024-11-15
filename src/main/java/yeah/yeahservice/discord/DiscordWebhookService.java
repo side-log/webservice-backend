@@ -21,7 +21,7 @@ public class DiscordWebhookService {
     @Value("${discord.webhook.url}")
     private String discordWebhookUrl;
 
-    public void sendWebhookMessage(String email, String storeName, String storeType, String location, String bestMenu, String price, String target, String mood) {
+    public void sendWebhookMessage(String email, String storeName, String storeType, String location, String bestMenu, String price, String target, String mood, String referrer) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -35,8 +35,9 @@ public class DiscordWebhookService {
                         "- 대표 메뉴: %s\n" +
                         "- 가격대: %s\n" +
                         "- 타겟: %s\n" +
-                        "- 분위기: %s",
-                email, storeName, storeType, location, bestMenu, price, target, mood
+                        "- 분위기: %s\n" +
+                        "- referrer: %s",
+                email, storeName, storeType, location, bestMenu, price, target, mood, referrer
         );
 
         Map<String, String> payload = new HashMap<>();

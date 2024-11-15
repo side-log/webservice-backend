@@ -36,8 +36,9 @@ public class StoreController {
         String price = request.getStore().getPrice();
         String target = request.getStore().getTarget();
         String mood = request.getStore().getMood();
+        String referrer = request.getReferrer();
 
-        discordWebhookService.sendWebhookMessage(email, storeName, storeType, location, bestMenu, price, target, mood);
+        discordWebhookService.sendWebhookMessage(email, storeName, storeType, location, bestMenu, price, target, mood, referrer);
 
         return ResponseEntity.ok("Saved Store And Member");
     }

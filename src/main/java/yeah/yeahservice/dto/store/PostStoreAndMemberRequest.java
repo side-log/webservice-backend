@@ -13,6 +13,10 @@ public class PostStoreAndMemberRequest {
     @Valid
     @NotNull(message = "User information is required")
     private MemberDto user;
+
+    @Valid
+    @NotNull(message = "referrer information is required")
+    private String referrer;
 }
 
 
